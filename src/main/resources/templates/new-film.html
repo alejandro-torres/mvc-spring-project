@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Nueva Pelicula</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div th:replace="fragments/navbar.html :: navbar_fragment"></div>
+	<div class="container">
+		<h1>Nueva Película</h1>
+		<form th:action="@{/film/save}" th:object="${film}" method="post" class="form-group" enctype="multipart/form-data">
+			
+			<input th:if="${not #lists.isEmpty(film)}" type="hidden" name="id" th:field="*{id}">
+			
+			<label for="title">Título</label> 
+			<input th:if="${not #lists.isEmpty(film)}" type="text" class="form-control" name="title" id="title" th:field="*{title}">
+			<input th:if="${#lists.isEmpty(film)}" type="text" class="form-control" name="title" id="title" required>
+			
+			<label for="synopsis">Sinopsis</label> 
+			<textarea th:if="${not #lists.isEmpty(film)}" class="form-control" name="synopsis" id="synopsis" th:field="*{synopsis}"></textarea>
+			<textarea th:if="${#lists.isEmpty(film)}" class="form-control" name="synopsis" id="synopsis"></textarea>
+			
+			<label for="firstRelease">Fecha de estreno</label> 
+			<input th:if="${not #lists.isEmpty(film)}" type="date" class="form-control" name="firstRelease" id="firstRelease" th:field="*{firstRelease}"> 
+			<input th:if="${#lists.isEmpty(film)}" type="date" class="form-control" name="firstRelease" id="firstRelease" required>
+			
+			<label for="trailer">Trailer</label> 
+			<input th:if="${not #lists.isEmpty(film)}" type="text" class="form-control" name="trailer" id="trailer" th:field="*{trailer}"> 
+			<input th:if="${#lists.isEmpty(film)}" type="text" class="form-control" name="trailer" id="trailer">
+			
+			<label for="cover">Portada</label> 
+			<input type="file" class="form-control" name="cover" id="cover">
+			
+			<label for="genre">Géneros</label> 
+			<select th:if="${not #lists.isEmpty(film)}" class="form-select" name="genre" th:field="*{genre}">
+				<option th:each="genre : ${listOfGenres}" th:value="${genre.id}" th:text="${genre.name}">
+			</select>
+			<select th:if="${#lists.isEmpty(film)}" class="form-select" name="genre">
+				<option th:each="genre : ${listOfGenres}" th:value="${genre.id}" th:text="${genre.name}">
+			</select>
+			
+			<input type="submit" class="btn btn-primary" style="margin-top: 20px" value="Guardar">
+		</form>
+	</div>
+</body>
+</html>

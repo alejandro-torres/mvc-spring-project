@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Registro</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+	<div th:replace="fragments/navbar.html :: navbar_fragment"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div th:if="${param.success}">
+					<div class="alert alert-info">Registrado correctamente</div>
+				</div>
+
+				<h1>Registro</h1>
+				<form th:action="@{/registration}" method="post" th:object="${user}">
+					<div class="mb-3">
+						<lable class="form-label" for="firstName"> Nombre </lable>
+						<input id="firstName" class="form-control" th:field="*{firstName}"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="mb-3">
+						<lable class="form-label" for="lastName"> Apellidos </lable>
+						<input id="lastName" class="form-control" th:field="*{lastName}"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="mb-3">
+						<lable class="form-label" for="email"> Email </lable>
+						<input id="email" class="form-control" th:field="*{email}"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="mb-3">
+						<lable class="form-label" for="password"> Password </lable>
+						<input id="password" class="form-control" type="password"
+							th:field="*{password}" required autofocus="autofocus" />
+					</div>
+					<div class="mb-3">
+						<lable class="form-label" for="role"> Rol </lable>
+						<select class="form-select" name="role">
+							<option value="ROLE_ADMIN">Admin</option>
+							<option value="ROLE_USER">User</option>
+						</select>
+					</div>
+					<input type="submit" class="btn btn-success" style="margin-bottom: 25px">
+				</form>
+				<a href="/login">login</a>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

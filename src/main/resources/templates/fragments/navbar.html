@@ -1,0 +1,34 @@
+<nav th:fragment="navbar_fragment" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <meta charset="UTF-8">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" class="nav-item">
+          <a class="nav-link" th:href="@{/film/list}">Películas</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" class="nav-item">
+          <a class="nav-link" th:href="@{/film/genre}">Géneros</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" class="nav-item">
+          <a class="nav-link" th:href="@{/film/new}">Nueva película</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" class="nav-item">
+          <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+          <a class="nav-link" th:href="@{/admin}">Panel de administración</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+          <a class="nav-link" th:href="@{/login}">Login</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+          <a class="nav-link" th:href="@{/registration}">Registro</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
